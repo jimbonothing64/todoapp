@@ -21,3 +21,4 @@ To see it in action: visit localhost:5174
 - Using svelte because new and fun, seems quite quick to develop.
 - Using axios because used in past, could use fetch but speed.
 - Retro styling because simple is good ;)
+- Deleting tasks is broken, ran out of time to fix.
