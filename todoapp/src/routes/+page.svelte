@@ -55,24 +55,28 @@
 </script>
 <main>
     <h1>Todos:</h1>
+    <ul>
     {#if tasks.length > 0}
-        <ul>
+        
             {#each tasks as task (task.id) }
                 <li>
                     <input type="text" bind:value={task.text} on:change={() => updateTask(task)}>
                     <input type="checkbox" bind:checked={task.completed} on:change={() => updateTask(task)}>
-                    <button on:onclick={() => deleteTask(task)}>x</button>
+                    <button on:click={() => deleteTask(task)}>x</button>
                 </li>
             {/each}
-            <li>
-                <input type="text" bind:value={newTask.text}>
-                <input type="checkbox" bind:value={newTask.completed}>
-                <button on:click={()=> addTask()}>+</button>
-            </li>
-        </ul>
     {:else}
+    <li>
         <p>You have nothing to do :)</p>
+    </li>
     {/if}
+    <li>
+        <input type="text" bind:value={newTask.text}>
+        <input type="checkbox" bind:value={newTask.completed}>
+        <button on:click={()=> addTask()}>+</button>
+    </li>
+    </ul>
+
 
 </main>
 <style></style>
