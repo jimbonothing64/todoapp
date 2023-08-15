@@ -2,8 +2,9 @@
 A simple app that lets you keep track of your exciting life. You can add and remove tasks and mark them as complete.
 ## Starting the backend
 ```
-cd task_api/
-pip install -r requirements.txt
+cd todo_api/
+python -m venv .env
+source .env/bin/activate
 python -m pip install -r requirements.txt
 python manage.py runserver
 ```
