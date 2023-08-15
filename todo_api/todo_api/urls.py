@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.urls import include, path
 from rest_framework import routers
-from todos.views import TaskViewSet
+from todos.views import TaskViewSet, ProjectViewSet
 
 router = routers.DefaultRouter()
 router.register(r'tasks', TaskViewSet)
+router.register(r'projects', ProjectViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
