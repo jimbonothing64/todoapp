@@ -1,77 +1,83 @@
 <script>
-    import axios from 'axios';
-    import { onMount } from 'svelte';
-    
-    axios.defaults.baseURL = "http://localhost:8000/projects/";
+  import ProjectAPI from '$lib/api/project.js';
+  import { onMount } from 'svelte';
 
-    let projects = [];
-    let newProject = {
-        name: "",
-    };
+  let projects = [];
+  let newProject = {
+    name: '',
+  };
 
-    async function getProjects() {
-        try {
-            const response = await axios.get();
-            projects = response.data;
-        } catch (error) {
-        console.error(error);
-        }
+  async function getProjects() {
+    try {
+      projects = await ProjectAPI.get();
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    async function updateProject(project) {
-        try {
-            await axios.put(`http://localhost:8000/projects/${project.id}/`, project);
-        } catch (error) {
-            console.error(error);
-        }
+  async function updateProject(project) {
+    try {
+      await ProjectAPI.update(project);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    async function deleteProject(project) {
-        try {
-            await axios.delete(`http://localhost:8000/projects/${project.id}/`, project);
-            projects = projects.filter(item => item.id !== project.id);
-        } catch (error) {
-            console.error(error);
-        }
+  async function deleteProject(project) {
+    try {
+      await ProjectAPI.delete(project);
+      projects = projects.filter((item) => item.id !== project.id);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    async function addProject() {
-        if (newProject.text.trim() === "") {
-            return
-        }
-        try {
-            const res = await axios.post('http://localhost:8000/projects/', newproject);
-            projects = [...projects, res.data];
-            newProject = {
-                name: "",
-            };
-        }  catch (error) {
-            console.error(error);
-        }
-        
+  async function addProject() {
+    if (newProject.name.trim() === '') {
+      return;
     }
+    try {
+      console.log(newProject);
+      const res = await ProjectAPI.post(newProject);
+      projects = [...projects, res];
+      newProject = {
+        name: '',
+      };
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-    onMount(getProjects);
+  onMount(getProjects);
 </script>
+
 <main>
-    <h1>Projects:</h1>
-    <ul>
+  <h1>Projects:</h1>
+  <ul>
     {#if projects.length > 0}
-        {#each projects as project (project.id) }
-            <li>
-                <input type="text" bind:value={project.name} on:change={() => updateProject(project)}>
-                <button on:click={() => deleteProject(project)}>x</button>
-            </li>
-        {/each}
+      {#each projects as project (project.id)}
+        <li>
+          <input
+            type="text"
+            bind:value={project.name}
+            on:change={() => updateProject(project)}
+          />
+          <button on:click={() => deleteProject(project)}>x</button>
+        </li>
+      {/each}
     {:else}
-    <li>
+      <li>
         <p>You have nothing to do :)</p>
-    </li>
+      </li>
     {/if}
     <li>
-        <input type="text" bind:value={newProject.text}>
-        <button on:click={()=> addProject()}>+</button>
+      <input
+        type="text"
+        bind:value={newProject.name}
+      />
+      <button on:click={() => addProject()}>+</button>
     </li>
-    </ul>
+  </ul>
 </main>
+
 <style></style>

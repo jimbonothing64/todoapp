@@ -1,7 +1,9 @@
 <script>
-    import ProjectsTaskList from "$lib/components/ProjectsTaskList.svelte"
+  import ProjectsTaskList from '$lib/components/ProjectsTaskList.svelte';
 </script>
+
 <main>
-    <ProjectsTaskList/>
+  <ProjectsTaskList />
 </main>
+
 <style></style>
