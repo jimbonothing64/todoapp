@@ -1,0 +1,17 @@
+services:
+  task-api:
+    build:
+      context: ./todo_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./todo_api:/app
+  task-web:
+    build:
+      context: ./todoapp
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./todoapp:/app
+    
+    
